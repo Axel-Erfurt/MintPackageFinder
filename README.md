@@ -5,6 +5,7 @@ find and install packages in Linix Mint 22 / LMDE6
 - install selected package
 - show package information
 - show installed packages (with filter)
+- toggle light / dark theme
 
 ## Requirements
 - python3
