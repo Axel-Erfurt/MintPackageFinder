@@ -2,14 +2,14 @@
 find and install packages in Linix Mint 22 / LMDE6
 
 - search for packages
-- install selected package (is made by aptkit)
+- install selected package (is made by [aptkit](https://github.com/linuxmint/aptkit))
 - show package information
 - show installed packages (with filter)
 - toggle light / dark theme
 
 ## Requirements
 - python3
-- gi repository
+- [gi repository](https://pypi.org/project/PyGObject/)
 
 ## Usage
 
