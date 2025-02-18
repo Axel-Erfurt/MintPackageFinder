@@ -1,5 +1,5 @@
 # MintPackageFinder
-find and install packages in Linix Mint 22 / LMDE6
+find and install packages in Linux Mint 22 / LMDE6
 
 - search for packages
 - install selected package (is made by [aptkit](https://github.com/linuxmint/aptkit))
@@ -10,6 +10,7 @@ find and install packages in Linix Mint 22 / LMDE6
 ## Requirements
 - python3
 - [gi repository](https://pypi.org/project/PyGObject/)
+- Linux Mint 22 or LMDE6
 
 ## Usage
 
