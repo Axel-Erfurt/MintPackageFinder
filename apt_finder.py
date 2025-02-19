@@ -127,6 +127,8 @@ class TreeViewWindow(Gtk.Window):
         self.my_treelist.add(self.treeview)
         self.vbox.pack_end(self.my_treelist, True, True, 1)
         
+        self.search_field.grab_focus()
+        
     def use_dark_theme(self, *args):
         if self.use_dark:
             self.theme_settings.set_property("gtk-application-prefer-dark-theme", False)
@@ -148,17 +150,15 @@ class TreeViewWindow(Gtk.Window):
     def get_packages(self, *args):
         self.founded_packages = ""
         search_term = self.search_field.get_text()
-        cmd = f"apt search '{search_term}'"
+        ### aptitude gives a better result than apt
+        cmd = f"aptitude search '{search_term}'"
         founded_packages = check_output(cmd, shell = True).decode().splitlines()
 
         for lines in founded_packages:
             status_i = lines.split(" ", 2)[:2][0]
             status_a = lines.split(" ", 2)[:2][1]
-            if lines.split(" ", )[1] == "A":
-                name = (lines.split(" ")[2])
-            else:
-                name = (lines.split(" ", )[3])
-            description = lines.split(' - ',)[1]
+            name = (lines.split(" ", )[2])
+            description = lines.split(' - ')[1]
             self.founded_packages += (f"{status_i}{status_a}\t{name}\t{description}\n")
         self.load_into_table()
         
@@ -208,21 +208,20 @@ class TreeViewWindow(Gtk.Window):
         if len(self.value_list) > 0:
             ### apt show -a "$PKGNAME"|grep Description: -A99
             pkgname = self.value_list[1]
-            package_info = check_output(f"apt show -a {pkgname}", shell = True).decode()
-            description = package_info.partition("Description: ")[2]
-            depends = package_info.partition("Depends: ")[2].partition("Recommends:")[0]
-            homepage = package_info.partition("Homepage: ")[2].partition("Tag:")[0]
-            version = package_info.partition("Version: ")[2].partition("\n")[0]
+            package_info = check_output(f"aptitude show {pkgname}", shell = True, universal_newlines=True)
+            description = package_info.split("Homepage: ")[0]
+            homepage = package_info.split("Homepage: ")[1].lstrip().split("\n")[0]
+            version = package_info.split("Version: ")[1].lstrip().split("\n")[0]
             
             dialog = Gtk.AboutDialog(title = "Information")
             dialog.set_title("Information")
-            dialog.set_authors(["Linux Developers"])
+            dialog.set_authors([f"{pkgname} Developers"])
             dialog.set_version(version)
             dialog.set_program_name(pkgname.title())
             dialog.set_website(homepage)
             dialog.set_website_label(pkgname.title())
             dialog.set_logo_icon_name("help-about")
-            dialog.set_comments(f"{description}\nDepends:\n{depends}")
+            dialog.set_comments(description)
             dialog.set_size_request(800, 600)
             dialog.connect('response', lambda dialog, data: dialog.destroy())
             dialog.show_all()
