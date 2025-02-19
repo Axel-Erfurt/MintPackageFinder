@@ -41,7 +41,7 @@ class TreeViewWindow(Gtk.Window):
         self.set_titlebar(headerbar)
 
         # install button
-        self.btn_install = Gtk.Button.new_from_icon_name("emblem-success", 3)
+        self.btn_install = Gtk.Button.new_from_icon_name("emblem-downloads", 3)
         self.btn_install.set_name("btn_save")
         self.btn_install.set_tooltip_text("install selected package")
         self.btn_install.set_hexpand(False)
@@ -49,7 +49,7 @@ class TreeViewWindow(Gtk.Window):
         self.btn_install.connect("clicked", self.on_install_package)
         
         # information button
-        self.btn_information = Gtk.Button.new_from_icon_name("emblem-information", 3)
+        self.btn_information = Gtk.Button.new_from_icon_name("dialog-information", 3)
         self.btn_information.set_name("btn_information")
         self.btn_information.set_tooltip_text("package description")
         self.btn_information.set_hexpand(False)
@@ -57,7 +57,7 @@ class TreeViewWindow(Gtk.Window):
         self.btn_information.connect("clicked", self.get_package_info)
         
         # mypackages button
-        self.btn_mypackages = Gtk.Button.new_from_icon_name("emblem-system", 3)
+        self.btn_mypackages = Gtk.Button.new_from_icon_name("emblem-generic", 3)
         self.btn_mypackages.set_name("btn_mypackages")
         self.btn_mypackages.set_tooltip_text("show installed packages")
         self.btn_mypackages.set_hexpand(False)
@@ -65,7 +65,7 @@ class TreeViewWindow(Gtk.Window):
         self.btn_mypackages.connect("clicked", self.show_mypackages)
         
         # mintupdate button
-        self.btn_mintupdate = Gtk.Button.new_from_icon_name("mintupdate", 3)
+        self.btn_mintupdate = Gtk.Button.new_from_icon_name("system-software-update", 3)
         self.btn_mintupdate.set_name("btn_mintupdate")
         self.btn_mintupdate.set_tooltip_text("run mintupdate")
         self.btn_mintupdate.set_hexpand(False)
